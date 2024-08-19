@@ -57,6 +57,7 @@ for FOLDER_PATH in "$@"; do
 	fi
 
 	# Create a symlink in the mounted image to the original folder
+	echo "Linking in $FOLDER_PATH/Avid MediaFiles to the disk image..."
 	ln -s "$FOLDER_PATH/Avid MediaFiles" "$MOUNT_PATH/"
 
 	if [ $? -eq 0 ]; then
