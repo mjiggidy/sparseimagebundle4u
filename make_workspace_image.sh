@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# make_workspace_image.sh
+# By Michael Jordan <michael@glowingpixel.com>
+# Given a Nexis workspace backup folder, create a sparseimagebundle and symlink in the Avid MediaFiles folder
+
 # Check if at least one folder path is provided
 if [ $# -eq 0 ]; then
 	echo ""
