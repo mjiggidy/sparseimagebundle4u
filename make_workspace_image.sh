@@ -4,6 +4,10 @@
 # By Michael Jordan <michael@glowingpixel.com>
 # Given a Nexis workspace backup folder, create a sparseimagebundle and symlink in the Avid MediaFiles folder
 
+#IMAGE_FILESYSTEM=APFS
+IMAGE_FILESYSTEM="HFS+"
+IMAGE_FILESIZE="32m"
+
 # Check if at least one folder path is provided
 if [ $# -eq 0 ]; then
 	echo ""
@@ -42,7 +46,7 @@ for FOLDER_PATH in "$@"; do
 
 	# Create a minimal sparse image bundle (32MB should be plenty for just a symlink)
 	echo "Creating sparseimagebundle  at $SPARSE_BUNDLE_PATH..."
-	hdiutil create -size 32m -fs APFS -type SPARSEBUNDLE -volname "$FOLDER_NAME" "$SPARSE_BUNDLE_PATH" > /dev/null
+	hdiutil create -size "$IMAGE_FILESIZE" -fs "$IMAGE_FILESYSTEM" -type SPARSEBUNDLE -volname "$FOLDER_NAME" "$SPARSE_BUNDLE_PATH" > /dev/null
 
 	if [ ! -d "$SPARSE_BUNDLE_PATH" ]; then
 		echo "$SPARSE_BUNDLE_PATH was not created." > /dev/stderr
