@@ -18,7 +18,7 @@ fi
 # Loop through all provided folder paths
 for FOLDER_PATH in "$@"; do
 	# Check if the folder exists
-	if [ ! -d "$FOLDER_PATH/Avid MediaFiles" ]; then
+	if [ ! -d "$FOLDER_PATH/Avid MediaFiles" ] && [ ! -d "$FOLDER_PATH/OMFI MediaFiles" ]; then
 		echo ""
 		echo "Folder $FOLDER_PATH does not contain an Avid MediaFiles folder. Skipping..." > /dev/stderr
 		continue
@@ -61,8 +61,15 @@ for FOLDER_PATH in "$@"; do
 	fi
 
 	# Create a symlink in the mounted image to the original folder
-	echo "Linking in $FOLDER_PATH/Avid MediaFiles to the disk image..."
-	ln -s "$FOLDER_PATH/Avid MediaFiles" "$MOUNT_PATH/"
+	if [ -d "$FOLDER_PATH/Avid MediaFiles" ]; then
+		echo "Linking in $FOLDER_PATH/Avid MediaFiles to the disk image..."
+		ln -s "$FOLDER_PATH/Avid MediaFiles" "$MOUNT_PATH/"
+	fi
+
+	if [ -d "$FOLDER_PATH/OMFI MediaFiles" ]; then
+		echo "Linking in $FOLDER_PATH/OMFI MediaFiles to the disk image..."
+		ln -s "$FOLDER_PATH/OMFI MediaFiles" "$MOUNT_PATH/"
+	fi
 
 	if [ $? -eq 0 ]; then
 		echo "Sparse image bundle was created successfully!"
