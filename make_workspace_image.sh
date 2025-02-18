@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # make_workspace_image.sh
 # By Michael Jordan <michael@glowingpixel.com>
@@ -45,7 +45,7 @@ for FOLDER_PATH in "$@"; do
 
 
 	# Create a minimal sparse image bundle (32MB should be plenty for just a symlink)
-	echo "Creating sparseimagebundle  at $SPARSE_BUNDLE_PATH..."
+	echo "Creating sparseimagebundle at $SPARSE_BUNDLE_PATH..."
 	hdiutil create -size "$IMAGE_FILESIZE" -fs "$IMAGE_FILESYSTEM" -type SPARSEBUNDLE -volname "$FOLDER_NAME" "$SPARSE_BUNDLE_PATH" > /dev/null
 
 	if [ ! -d "$SPARSE_BUNDLE_PATH" ]; then
